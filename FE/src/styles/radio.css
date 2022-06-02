@@ -1,0 +1,48 @@
+.brand-radio {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.brand-radio-wrapper {
+  font-family: Mark Pro, sans-serif;
+}
+
+.brand-radio-wrapper > label {
+  cursor: pointer;
+}
+
+.brand-radio:before {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #fff;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid #e7eaee;
+}
+
+.brand-radio:checked:after {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  top: 4px;
+  left: 5px;
+  position: absolute;
+  background-color: #006c52;
+  font-weight: bolder;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid #006c52;
+}
+.brand-radio:checked:before {
+  background-color: #fff;
+  border: 2px solid #006c52;
+}

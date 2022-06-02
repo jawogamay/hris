@@ -1,0 +1,75 @@
+service: laravel
+
+provider:
+  name: aws
+  # The AWS region in which to deploy (us-east-1 is the default)
+  region: us-east-1
+  # The stage of the application, e.g. dev, production, staging… ('dev' is the default)
+  stage: dev
+  runtime: provided.al2
+  httpApi:
+    cors:
+      allowedOrigins:
+        - https://d19s1iggse0wp5.cloudfront.net
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - "*"
+      allowCredentials: true
+      exposedResponseHeaders:
+        - Special-Response-Header
+  environment:
+    DB_PASSWORD: ${ssm:/dev/DB_PASSWORD}
+    SQS_QUEUE: ${construct:jobs.queueUrl}
+
+package:
+  # Directories to exclude from deployment
+  patterns:
+    - "!node_modules/**"
+    - "!public/storage"
+    - "!resources/assets/**"
+    - "!storage/**"
+    - "!tests/**"
+
+functions:
+  # This function runs the Laravel website/API
+  web:
+    handler: public/index.php
+    timeout: 29 # in seconds (API Gateway has a timeout of 29 seconds)
+    layers:
+      - ${bref:layer.php-80-fpm}
+    events:
+      - httpApi: "*"
+    vpc:
+      securityGroupIds:
+        - sg-087dbaf1277063291
+      subnetIds:
+        - subnet-0b2acc40e202f22f6
+        - subnet-0d0f56a8a42fb6fcd
+        - subnet-01c8d470f875a3a96
+        - subnet-037e6783573c9507e
+        - subnet-04131eff962da819e
+        - subnet-025aba2134e404ff8
+  # This function lets us run artisan commands in Lambda
+  artisan:
+    handler: artisan
+    layers:
+      - ${bref:layer.php-80} # PHP
+      - ${bref:layer.console} # The "console" layer
+    events:
+      - schedule:
+          rate: rate(1 minute)
+          input: '"queue:work --sleep=3 --tries=3 --max-time=3600"'
+
+constructs:
+  jobs:
+    type: queue
+    worker:
+      handler: worker.php
+      layers:
+        - ${bref:layer.php-80}
+
+plugins:
+  - ./vendor/bref/bref
+  - serverless-lift

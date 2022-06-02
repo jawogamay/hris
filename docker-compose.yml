@@ -1,0 +1,73 @@
+version: '3.3'
+
+services:
+  client:
+    ports:
+      - 3030:3000
+    build:
+      context: ./FE
+      dockerfile: Dockerfile
+    volumes:
+      - ./FE:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - planit-network
+
+  app:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: cloudsigma.com/php
+    container_name: planit_api
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html/
+    volumes:
+      - ./api:/var/www/html/
+      - ./api/php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
+    networks:
+      - planit-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '18000:80'
+      - '1443:443'
+    volumes:
+      - ./api:/var/www/html/
+      - ./api/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - planit-network
+
+  db:
+    container_name: planit_db
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: my-food-plan-it
+      MYSQL_USER: tinkeruser
+      MYSQL_PASSWORD: tinkerph
+      MYSQL_ROOT_PASSWORD: tinkerph
+    ports:
+      - '3300:3306'
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - planit-network
+
+networks:
+  planit-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

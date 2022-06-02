@@ -1,0 +1,72 @@
+[
+    {
+        "amount": "1",
+        "unit": "pound",
+        "ingredient": "raw chicken meat",
+        "calories": 185,
+        "fat": 170,
+        "carbs": 30,
+        "sodium": 70,
+        "cholesterol": 80
+    },
+    {
+        "amount": "1",
+        "unit": "cup",
+        "ingredient": "water",
+        "calories": 155,
+        "fat": 166,
+        "carbs": 45,
+        "sodium": 23,
+        "cholesterol": 22
+    },
+    {
+        "amount": "1/2",
+        "unit": "cup",
+        "ingredient": "onion",
+        "calories": 155,
+        "fat": 166,
+        "carbs": 45,
+        "sodium": 23,
+        "cholesterol": 22
+    },
+    {
+        "amount": "3",
+        "unit": "table spoon",
+        "ingredient": "vinegar",
+        "calories": 155,
+        "fat": 166,
+        "carbs": 45,
+        "sodium": 23,
+        "cholesterol": 22
+    },
+    {
+        "amount": 3,
+        "unit": "table spoon",
+        "ingredient": "sauce",
+        "calories": 155,
+        "fat": 166,
+        "carbs": 45,
+        "sodium": 23,
+        "cholesterol": 22
+    },
+    {
+        "amount": 3,
+        "unit": "table spoon",
+        "ingredient": "salt",
+        "calories": 155,
+        "fat": 166,
+        "carbs": 45,
+        "sodium": 23,
+        "cholesterol": 22
+    },
+    {
+        "amount": 3,
+        "unit": "table spoon",
+        "ingredient": "flour",
+        "calories": 155,
+        "fat": 166,
+        "carbs": 45,
+        "sodium": 23,
+        "cholesterol": 22
+    }
+]

@@ -1,0 +1,35 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+@font-face {
+  font-family: 'Mark Pro';
+  src: url('./7200c6dd8ac604abe09f5159e53a40c0.eot');
+  src: url('./7200c6dd8ac604abe09f5159e53a40c0.eot?#iefix')
+      format('embedded-opentype'),
+    url('./7200c6dd8ac604abe09f5159e53a40c0.woff2') format('woff2'),
+    url('./7200c6dd8ac604abe09f5159e53a40c0.woff') format('woff'),
+    url('./7200c6dd8ac604abe09f5159e53a40c0.ttf') format('truetype'),
+    url('./7200c6dd8ac604abe09f5159e53a40c0.svg#Mark Pro') format('svg');
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.custom-segmented-ctrl > label {
+  color: #006c52 !important;
+}
+
+.mantine-NumberInput-rightSection {
+  width: 70px !important;
+}
